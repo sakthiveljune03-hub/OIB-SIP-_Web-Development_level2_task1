@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Calculator</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: hsl(0, 0%, 94%);
+        }
+
+        .calculator {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            width: 260px;
+        }
+
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 20px;
+            text-align: right;
+            margin-bottom: 10px;
+            padding-right: 10px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            height: 45px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .zero {
+            grid-column: span 2;
+        }
+
+        .equal {
+            grid-column: span 2;
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" disabled>
+
+    <div class="buttons">
+        <button>AC</button>
+        <button>/</button>
+        <button>*</button>
+        <button>-</button>
+
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>+</button>
+
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+
+        <button class="zero">0</button>
+        <button class="equal">=</button>
+    </div>
+</div>
+
+<script>
+    const display = document.getElementById("display");
+    const buttons = document.querySelectorAll("button");
+
+    let expression = "";
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const value = button.textContent;
+
+            if (value === "AC") {
+                expression = "";
+                display.value = "";
+            }
+            else if (value === "=") {
+                try {
+                    expression = eval(expression);
+                    display.value = expression;
+                } catch {
+                    display.value = "Error";
+                    expression = "";
+                }
+            }
+            else {
+                expression += value;
+                display.value = expression;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
